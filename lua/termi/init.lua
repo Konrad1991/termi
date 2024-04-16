@@ -14,6 +14,7 @@ end
 function M.run()
 	local build_output = run_build()
 	local bufnr = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_option(bufnr, "filetype", "cpp")
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, build_output)
 
 	vim.api.nvim_win_set_option(0, "wrap", false)
