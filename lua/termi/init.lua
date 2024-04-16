@@ -10,11 +10,27 @@ function M.run_build()
 	end
 end
 
+-- function run_build()
+-- 	local current_dir = vim.fn.expand("%:p:h")
+-- 	local build_script = vim.fn.findfile("build.sh", current_dir)
+-- 	if build_script ~= "" then
+-- 		local output = vim.fn.systemlist("cd " .. current_dir .. " && ./build.sh")
+-- 		return output
+-- else
+-- return { "build.sh not found in the current directory." }
+-- end
+-- end
+
 function run_build()
 	local current_dir = vim.fn.expand("%:p:h")
 	local build_script = vim.fn.findfile("build.sh", current_dir)
 	if build_script ~= "" then
-		local output = vim.fn.systemlist("cd " .. current_dir .. " && ./build.sh")
+		local output = {}
+		local handle = io.popen("cd " .. current_dir .. " && ./build.sh 2>&1")
+		for line in handle:lines() do
+			table.insert(output, line)
+		end
+		handle:close()
 		return output
 	else
 		return { "build.sh not found in the current directory." }
