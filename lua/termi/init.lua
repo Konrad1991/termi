@@ -10,7 +10,7 @@ function M.run_build()
 	end
 end
 
-function M.run_build()
+function run_build()
 	local current_dir = vim.fn.expand("%:p:h")
 	local build_script = vim.fn.findfile("build.sh", current_dir)
 	if build_script ~= "" then
