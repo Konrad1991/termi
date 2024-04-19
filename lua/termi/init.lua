@@ -11,8 +11,8 @@ function run_build()
 	end
 end
 
-function M.run()
-	local build_output = run_build()
+function M.run(command)
+	local build_output = vim.fn.systemlist(command)--run_build()
 	local bufnr = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_option(bufnr, "filetype", "cpp")
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, build_output)
